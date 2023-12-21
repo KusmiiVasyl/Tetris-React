@@ -1,0 +1,8 @@
+.tetris {
+  background-color: rgb(73, 37, 2);
+  padding: 0.5vh;
+  border: 20px solid rgb(136, 70, 4);
+  border-top: 1px solid rgb(136, 70, 4);
+  border-radius: 0.5vh 0.5vh 4vh 4vh;
+  display: grid;
+}

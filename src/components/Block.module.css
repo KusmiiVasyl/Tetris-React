@@ -1,0 +1,7 @@
+.block {
+  height: min(4vh, 7vw);
+  width: min(4vh, 7vw);
+  background-color: #4545454d;
+  border: 0.01px solid rgb(100, 54, 8);
+  border-radius: 0.3vh;
+}
