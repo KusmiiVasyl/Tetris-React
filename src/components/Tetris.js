@@ -1,6 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import style from './Tetris.module.css'
-import { generateFigure, generatePlayfield } from '../utils/tetrisUtils'
+import {
+  drawPlayField,
+  generateFigure,
+  generatePlayfield,
+} from '../utils/tetrisUtils'
 import Block from './Block'
 import {
   PLAYFIELD_ROWS,
@@ -15,11 +19,18 @@ const Tetris = () => {
     gridTemplateRows: `repeat(${PLAYFIELD_ROWS}, auto)`,
   }
 
+  useEffect(() => {
+    setPlayField((playField) => drawPlayField(playField, figure))
+  }, [figure])
+
   return (
     <div className={style.tetris} style={tetrisStyle}>
       {playField.map((fieldRow, indexRow) =>
         fieldRow.map((_, indexColumn) => {
-          return <Block key={indexRow + indexColumn} />
+          if (!playField[indexRow][indexColumn]) {
+            return <Block key={indexRow + indexColumn} color="" />
+          }
+          return <Block key={indexRow + indexColumn} color={figure.color} />
         })
       )}
     </div>

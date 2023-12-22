@@ -28,6 +28,22 @@ export const generateFigure = () => {
   }
 }
 
+export const drawPlayField = (playField, figure) => {
+  const newPlayField = JSON.parse(JSON.stringify(playField))
+  const figureMatrixSize = figure.matrix.length
+
+  for (let row = 0; row < figureMatrixSize; row++) {
+    for (let col = 0; col < figureMatrixSize; col++) {
+      if (!figure.matrix[row][col]) continue
+      newPlayField[row + figure.row][col + figure.column] =
+        figure.matrix[row][col]
+    }
+  }
+  return newPlayField
+}
+
+// ----------------------
+
 function getRandomTetrominoNamesIndex() {
   return Math.floor(Math.random() * FIGURES_NAMES.length)
 }
