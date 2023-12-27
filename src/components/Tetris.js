@@ -4,6 +4,9 @@ import {
   drawPlayField,
   generateFigure,
   generatePlayfield,
+  moveFigureDown,
+  moveFigureLeft,
+  moveFigureRight,
 } from '../utils/tetrisUtils'
 import Block from './Block'
 import {
@@ -27,29 +30,25 @@ const Tetris = () => {
     const handleKeyDown = (event) => {
       switch (event.key) {
         case 'ArrowDown':
-          setFigure(() => {
-            return { ...figure, row: (figure.row += 1) }
-          })
+          setFigure(moveFigureDown(figure))
           break
         case 'ArrowLeft':
-          setFigure(() => {
-            return { ...figure, column: (figure.column -= 1) }
-          })
+          setFigure(moveFigureLeft(figure))
           break
         case 'ArrowRight':
-          setFigure(() => {
-            return { ...figure, column: (figure.column += 1) }
-          })
+          setFigure(moveFigureRight(figure))
           break
         default:
-          setFigure(() => {
-            return { ...figure }
-          })
+          setFigure({ ...figure })
           break
       }
     }
+
     window.addEventListener('keydown', handleKeyDown)
-  }, [])
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [figure, playField])
 
   return (
     <div className={style.tetris} style={tetrisStyle}>

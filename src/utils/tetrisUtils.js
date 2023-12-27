@@ -41,6 +41,24 @@ export const drawPlayField = (figure) => {
   return playField
 }
 
+export const moveFigureDown = (figure) => {
+  figure.row += 1
+  isValid(figure) && (figure.row -= 1)
+  return { ...figure }
+}
+
+export const moveFigureLeft = (figure) => {
+  figure.column -= 1
+  isValid(figure) && (figure.column += 1)
+  return { ...figure }
+}
+
+export const moveFigureRight = (figure) => {
+  figure.column += 1
+  isValid(figure) && (figure.column -= 1)
+  return { ...figure }
+}
+
 // ----------------------
 
 function getRandomTetrominoNamesIndex() {
@@ -57,4 +75,21 @@ function generateRandomColorRGB() {
   } while (red === 73 && green === 37 && blue === 2) // Background play field RGB
 
   return `rgb(${red}, ${green}, ${blue})`
+}
+
+function isValid(figure) {
+  const matrixSize = figure.matrix.length
+  for (let row = 0; row < matrixSize; row++) {
+    for (let col = 0; col < matrixSize; col++) {
+      if (!figure.matrix[row][col]) continue
+      if (
+        figure.column + col >= PLAYFIELD_COLUMNS ||
+        figure.column + col < 0 ||
+        figure.row + row >= PLAYFIELD_ROWS
+      ) {
+        return true
+      }
+    }
+  }
+  return false
 }
