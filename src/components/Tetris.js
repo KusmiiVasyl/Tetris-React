@@ -20,8 +20,36 @@ const Tetris = () => {
   }
 
   useEffect(() => {
-    setPlayField((playField) => drawPlayField(playField, figure))
+    setPlayField(() => drawPlayField(figure))
   }, [figure])
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      switch (event.key) {
+        case 'ArrowDown':
+          setFigure(() => {
+            return { ...figure, row: (figure.row += 1) }
+          })
+          break
+        case 'ArrowLeft':
+          setFigure(() => {
+            return { ...figure, column: (figure.column -= 1) }
+          })
+          break
+        case 'ArrowRight':
+          setFigure(() => {
+            return { ...figure, column: (figure.column += 1) }
+          })
+          break
+        default:
+          setFigure(() => {
+            return { ...figure }
+          })
+          break
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+  }, [])
 
   return (
     <div className={style.tetris} style={tetrisStyle}>
